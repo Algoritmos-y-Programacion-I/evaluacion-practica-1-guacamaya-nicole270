@@ -52,6 +52,7 @@ public class Guacamaya {
             System.out.println("\nDigite la opcion a ejecutar");
             int opcion = reader.nextInt();
 
+                      
             switch (opcion) {
                 case 1:
                     solicitarDatos();
@@ -86,11 +87,9 @@ public class Guacamaya {
     }
 
     /**
-     * Descripcion: Este metodo se encarga de preguntar al usuario el numero de referencias de producto diferentes 
-     * vendidas en el dia e inicializa con ese valor los arreglos encargados de almacenar precios y cantidades
-     * pre: El Scanner reader debe estar inicializado
-     * pre: Los arreglos precios y unidades deben estar declarados
-     * pos: Los arreglos precios y unidades quedan inicializados
+     * Descripcion: Este metodo se encarga de establecer la cantidad de ventas del dia
+     * pre: el arreglo debe estar inicializado con valores enteros 
+     * pos: el arreglo debe calcular las ventas del dia
      */
     public static void establecerCantidadVendida() {
 
@@ -100,38 +99,74 @@ public class Guacamaya {
         precios = new double[referencias];
         unidades = new int[referencias];
 
+       
     }
-
+    
+    /**
+     * Descripcion: en este metodo se solicitan los datos
+     * pre: El Scanner reader debe estar inicializado
+     * pre: Los arreglos precios y unidades deben estar declarados
+     * pos: Los arreglos precios y unidades quedan inicializados
+     */
     public static void solicitarDatos(){
+        System.out.println("\nDigite el número de referencias de producto diferentes vendidas en el día:");
+        int referencias = reader.nextInt();
 
+        precios = new double[referencias];
+        unidades = new int[referencias];
+
+        for (int i = 0; i < referencias; i++) {
+            System.out.println("\nIngrese el precio de la referencia " + (i + 1) + ":");
+            precios[i] = reader.nextDouble();
+
+            System.out.println("Ingrese la cantidad de unidades vendidas de la referencia " + (i + 1) + ":");
+            unidades[i] = reader.nextInt();
+        }
         
      
     }
 
     public static int calcularTotalUnidadesVendidas(){
-
-        return 0;
-
+        int vendidas = 0;
+        for (int unidad : unidades) {
+            vendidas += unidad;
+        }
+        return vendidas;
+        
 
     }
 
+    /*Descripcion: Este metodo calcula el promedio de los precios
+    pre: Los arreglos precios y unidades deben estar declarados
+    pos: Los arreglos precios y unidades quedan inicializados
+    */
+
     public static double calcularPrecioPromedio(){
-
-        return 0;
-
+        double suma = 0;
+        for (double precio : precios) {
+            suma += precio;
+        }
+        return suma / precios.length;
 
     }
 
     public static double calcularVentasTotales(){
-
-        return 0;
-
+      double ventas = 0;
+        for (int i = 0; i < precios.length; i++) {
+            ventas += precios[i] * unidades[i];
+        }
+        return ventas;
 
     }
 
     public static int consultarReferenciasSobreLimite(double limite){
-
-        return 0;
+        int contador = 0;
+        for (int i = 0; i < precios.length; i++) {
+            if ((precios[i] * unidades[i]) > limite) {
+                contador++;
+            }
+        }
+        return contador;
 
     }
 
